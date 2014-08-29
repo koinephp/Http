@@ -2,19 +2,19 @@
 
 namespace KoineTess;
 
-use Koine\Http\Params;
+use Koine\Http\Environment;
 use PHPUnit_Framework_TestCase;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
  */
-class ParamsTest extends PHPUnit_Framework_TestCase
+class EnvironmentTest extends PHPUnit_Framework_TestCase
 {
     protected $object;
 
     public function setUp()
     {
-        $this->object = new Params();
+        $this->object = new Environment();
     }
 
     /**
