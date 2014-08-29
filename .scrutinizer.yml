@@ -5,7 +5,7 @@ checks:
 tools:
   external_code_coverage: true
   php_code_coverage:
-    test_command: "phpunit --configuration tests/phpunit.xml --coverage-clover=coverage.clover"
+    test_command: "phpunit --configuration tests/phpunit.xml"
     filter:
       paths: ["lib/*"]
     php_sim:
