@@ -67,4 +67,17 @@ class Headers extends Hash
 
         return $this;
     }
+
+    /**
+     * Clear header
+     * @return self
+     */
+    public function clear()
+    {
+        foreach ($this as $key  => $value) {
+            $this->offsetUnset($key);
+        }
+
+        return $this;
+    }
 }

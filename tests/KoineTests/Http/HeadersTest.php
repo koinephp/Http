@@ -67,4 +67,17 @@ class HeadersTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $headers);
     }
+
+    /**
+     * @test
+     */
+    public function canClearHeaders()
+    {
+        $headers = $this->object
+            ->setContentType('application/json')
+            ->clear()
+            ->toArray();
+
+        $this->assertEquals(array(), $headers);
+    }
 }
