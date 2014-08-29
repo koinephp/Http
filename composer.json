@@ -1,0 +1,22 @@
+{
+    "name": "koine/http",
+    "description": "Http objects for handling requests and responses",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcelo Jacobus",
+            "email": "marcelo.jacobus@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=5.3.3",
+        "koine/core" : "0.9.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"Koine\\": "lib"}
+    }
+}
