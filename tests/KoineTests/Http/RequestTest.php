@@ -37,21 +37,24 @@ class RequestTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itCanGetTheEnvironment()
+    public function itCanSetEnvironmentViaConstructor()
     {
-        $env = $this->object->getEnvironment();
-        $this->assertInstanceOf('Koine\Http\Environment', $env);
-        $this->assertSame($this->environment, $env);
+        $env    = new Environment(array());
+        $object = new Request(array('environment' => $env));
+
+        $this->assertSame($env, $object->getEnvironment());
     }
 
     /**
      * @test
      */
-    public function itCanGetTheSession()
+    public function itCanSetSessioinViaConstructor()
     {
-        $session = $this->object->getSession();
-        $this->assertInstanceOf('Koine\Http\Session', $session);
-        $this->assertSame($this->session, $session);
+        $session = array();
+        $session = new Session($session);
+        $object  = new Request(array('session' => $session));
+
+        $this->assertSame($session, $object->getSession());
     }
 
     /**
@@ -59,8 +62,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function itCanGetTheCookies()
     {
-        $cookies = $this->object->getCookies();
-        $this->assertInstanceOf('Koine\Http\Cookies', $cookies);
-        $this->assertSame($this->cookies, $cookies);
+        $cookies = array();
+        $cookies = new Cookies($cookies);
+        $object  = new Request(array('cookies' => $cookies));
+
+        $this->assertSame($cookies, $object->getCookies());
     }
 }
