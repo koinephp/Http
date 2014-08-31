@@ -6,6 +6,7 @@ use Koine\Http\Request;
 use Koine\Http\Environment;
 use Koine\Http\Session;
 use Koine\Http\Cookies;
+use Koine\Http\Params;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -67,5 +68,38 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $object  = new Request(array('cookies' => $cookies));
 
         $this->assertSame($cookies, $object->getCookies());
+    }
+
+    /**
+     * @test
+     */
+    public function setsParamsInTheConstructor()
+    {
+        $params = new Params(array());
+        $object = new Request(array('params' => $params));
+
+        $this->assertSame($params, $object->getParams());
+    }
+
+    /**
+     * @test
+     */
+    public function setsPostParamsInTheConstructor()
+    {
+        $params = new Params(array());
+        $object = new Request(array('post' => $params));
+
+        $this->assertSame($params, $object->getPost());
+    }
+
+    /**
+     * @test
+     */
+    public function setsGetParamsInTheConstructor()
+    {
+        $params = new Params(array());
+        $object = new Request(array('get' => $params));
+
+        $this->assertSame($params, $object->getGet());
     }
 }
