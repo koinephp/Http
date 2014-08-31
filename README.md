@@ -25,7 +25,7 @@ Package information:
 namespace Koine\Http;
 
 $env     = new Environment($_SERVER);
-$cookie  = new Cookie($_COOKIE);
+$cookie  = new Cookies($_COOKIE);
 $session = new Session($_SESSION);
 $post    = new Params($_POST);
 $get     = new Params($_GET);
@@ -43,7 +43,7 @@ $request = new Request(array(
 $hello = function ($request) {
 
     $response = new Response(array(
-          'cookies' => $cookies,
+        'cookies' => $cookies,
     ));
 
     return $response->setBody('Hello Word!');
