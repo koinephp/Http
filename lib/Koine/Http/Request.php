@@ -179,4 +179,26 @@ class Request extends Object
     {
         return $this->getParams;
     }
+
+    /**
+     * Informs if request is ajax
+     * Alias to isXhr()
+     * @see isXhr()
+     * @return boolean
+     */
+    public function isAjax()
+    {
+        return $this->isXhr();
+    }
+
+    /**
+     * Informs if request is ajax
+     * @return boolean
+     */
+    public function isXhr()
+    {
+        $env = $this->getEnvironment();
+
+        return $env['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
 }

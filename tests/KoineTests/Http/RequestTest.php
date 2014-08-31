@@ -92,4 +92,18 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame($this->get, $this->object->getGet());
     }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestisAjax()
+    {
+        $this->assertFalse($this->object->isXhr());
+        $this->assertFalse($this->object->isAjax());
+
+        $this->environment['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+
+        $this->assertTrue($this->object->isXhr());
+        $this->assertTrue($this->object->isAjax());
+    }
 }
