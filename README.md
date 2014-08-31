@@ -20,7 +20,6 @@ Package information:
 ### Usage
 
 ```php
-<?php
 
 namespace Koine\Http;
 
