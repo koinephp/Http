@@ -45,7 +45,7 @@ class Headers extends Hash
     /**
      * Set the location to redirect to
      *
-     * @param string $contentType
+     * @param  string $contentType
      * @return self
      */
     public function setLocation($location)
@@ -58,7 +58,7 @@ class Headers extends Hash
     /**
      * Set the content type
      *
-     * @param string $contentType
+     * @param  string $contentType
      * @return self
      */
     public function setContentType($contentType)

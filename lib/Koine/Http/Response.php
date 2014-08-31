@@ -10,7 +10,6 @@ use Koine\String;
  */
 class Response
 {
-
     /**
      * @var Headers
      */
@@ -21,6 +20,11 @@ class Response
      */
     protected $body;
 
+    /**
+     * The available options are:
+     *  - headers - the response headers
+     * @param array $options
+     */
     public function __construct(array $options = array())
     {
         $options = new Hash($options);
@@ -32,11 +36,20 @@ class Response
         $this->body = new String();
     }
 
+    /**
+     * Get the response headers
+     * @return Headers
+     */
     public function getHeaders()
     {
         return $this->headers;
     }
 
+    /**
+     * Set the headers
+     * @param  Headers $headers
+     * @return self
+     */
     public function setHeaders(Headers $headers)
     {
         $this->headers = $headers;
@@ -44,11 +57,20 @@ class Response
         return $this;
     }
 
+    /**
+     * Get the response content
+     * @return string
+     */
     public function getBody()
     {
         return $this->body->toString();
     }
 
+    /**
+     * Set the response content
+     * @param  string $body
+     * @return self
+     */
     public function setBody($body)
     {
         $this->body = new String((string) $body);
@@ -56,6 +78,11 @@ class Response
         return $this;
     }
 
+    /**
+     * Append content to the response
+     * @param  string $content
+     * @return self
+     */
     public function appendBody($content)
     {
         $this->body->append($content);
@@ -63,12 +90,22 @@ class Response
         return $this;
     }
 
+    /**
+     * Prepends content to the response
+     * @param  string $content
+     * @return self
+     */
     public function prependBody($content)
     {
         // TODO: Create prepend method to the String class
         return $this->setBody($content . $this->getBody());
     }
 
+    /**
+     * Sends the response
+     *  - Send headers
+     *  - Echoes content
+     */
     public function send()
     {
         $this->getHeaders()->send();
