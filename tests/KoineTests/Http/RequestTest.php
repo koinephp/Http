@@ -17,6 +17,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
     protected $environment;
     protected $object;
     protected $session;
+    protected $params;
+    protected $getParam;
+    protected $postParams;
 
     public function setUp()
     {
@@ -28,10 +31,17 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $cookies = array();
         $this->cookies = new Cookies($session);
 
+        $this->params = new Params();
+        $this->post   = new Params();
+        $this->get    = new Params();
+
         $this->object = new Request(array(
             'environment' => $this->environment,
             'session'     => $this->session,
             'cookies'     => $this->cookies,
+            'params'      => $this->params,
+            'post'        => $this->post,
+            'get'         => $this->get,
         ));
     }
 
@@ -40,10 +50,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function itCanSetEnvironmentViaConstructor()
     {
-        $env    = new Environment(array());
-        $object = new Request(array('environment' => $env));
-
-        $this->assertSame($env, $object->getEnvironment());
+        $this->assertSame($this->environment, $this->object->getEnvironment());
     }
 
     /**
@@ -51,11 +58,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function itCanSetSessioinViaConstructor()
     {
-        $session = array();
-        $session = new Session($session);
-        $object  = new Request(array('session' => $session));
-
-        $this->assertSame($session, $object->getSession());
+        $this->assertSame($this->session, $this->object->getSession());
     }
 
     /**
@@ -63,11 +66,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function itCanGetTheCookies()
     {
-        $cookies = array();
-        $cookies = new Cookies($cookies);
-        $object  = new Request(array('cookies' => $cookies));
-
-        $this->assertSame($cookies, $object->getCookies());
+        $this->assertSame($this->cookies, $this->object->getCookies());
     }
 
     /**
@@ -75,10 +74,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function setsParamsInTheConstructor()
     {
-        $params = new Params(array());
-        $object = new Request(array('params' => $params));
-
-        $this->assertSame($params, $object->getParams());
+        $this->assertSame($this->params, $this->object->getParams());
     }
 
     /**
@@ -86,10 +82,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function setsPostParamsInTheConstructor()
     {
-        $params = new Params(array());
-        $object = new Request(array('post' => $params));
-
-        $this->assertSame($params, $object->getPost());
+        $this->assertSame($this->post, $this->object->getPost());
     }
 
     /**
@@ -97,9 +90,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function setsGetParamsInTheConstructor()
     {
-        $params = new Params(array());
-        $object = new Request(array('get' => $params));
-
-        $this->assertSame($params, $object->getGet());
+        $this->assertSame($this->get, $this->object->getGet());
     }
 }
