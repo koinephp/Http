@@ -3,11 +3,12 @@
 namespace Koine\Http;
 
 use Koine\Hash;
+use Koine\Object;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
  */
-class Request
+class Request extends Object
 {
     protected $environment;
 
@@ -15,9 +16,9 @@ class Request
     {
         $options = new Hash($options);
 
-        $this->setEnvironment($options->fetch('environment'));
-        $this->setSession($options->fetch('session'));
-        $this->setCookies($options->fetch('cookies'));
+        foreach ($options as $option => $value) {
+            $this->send('set' . ucfirst($option), $value);
+        }
     }
 
     public function setEnvironment(Environment $environment)
