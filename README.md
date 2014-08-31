@@ -25,7 +25,7 @@ Package information:
 namespace Koine\Http;
 
 $env     = new Environment($_SERVER);
-$cookie  = new Cookies($_COOKIE);
+$cookies = new Cookies($_COOKIE);
 $session = new Session($_SESSION);
 $post    = new Params($_POST);
 $get     = new Params($_GET);

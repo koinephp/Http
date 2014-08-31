@@ -17,6 +17,7 @@ class Request
 
         $this->setEnvironment($options->fetch('environment'));
         $this->setSession($options->fetch('session'));
+        $this->setCookies($options->fetch('cookies'));
     }
 
     public function setEnvironment(Environment $environment)
@@ -41,5 +42,16 @@ class Request
     public function getSession()
     {
         return $this->session;
+    }
+
+    public function setCookies(Cookies $cookies)
+    {
+        $this->cookies = $cookies;
+
+        return $this;
+    }
+    public function getCookies()
+    {
+        return $this->cookies;
     }
 }
