@@ -170,6 +170,7 @@ class Response
      */
     public function send()
     {
+        $this->setResponseCode();
         $this->getHeaders()->send();
         echo $this->getBody();
     }
@@ -203,4 +204,24 @@ class Response
         return $this->statusCode;
     }
 
+    /**
+     * Set the status code header
+     */
+    protected function setResponseCode()
+    {
+        if (function_exists('http_status_code')) {
+            http_status_code($this->statusCode);
+        } else {
+            $message = $this->validStatusCodes[$this->statusCode];
+
+            $sapi_type = php_sapi_name();
+
+            if (substr($sapi_type, 0, 3) == 'cgi') {
+                $this->headers['Status'] = new Header('Status', $message);
+            } else {
+                $headerName = "HTTP/1.1 $message";
+                $this->headers['Status'] = new Header($headerName);
+            }
+        }
+    }
 }
