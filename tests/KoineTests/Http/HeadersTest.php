@@ -48,6 +48,17 @@ class HeadersTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException Koine\Http\Exceptions\HeadersAlreadySentException
+     * @expectedExceptionMessage Headers already sent
+     */
+    public function sendThrowsAnExceptionWhenHeadersHaveAlreadyBeenSent()
+    {
+        $this->object->send();
+        $this->object->send();
+    }
+
+    /**
+     * @test
      */
     public function setLocationSetsTheHeaderLocation()
     {

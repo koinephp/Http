@@ -30,7 +30,9 @@ class Headers extends Hash
     public function send()
     {
         if ($this->sent()) {
-            // TODO: throw exception
+            throw new Exceptions\HeadersAlreadySentException(
+                "Headers already sent"
+            );
         }
 
         $this->sent = true;
