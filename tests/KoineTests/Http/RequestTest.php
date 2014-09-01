@@ -29,7 +29,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->session = new Session($session);
 
         $cookies = array();
-        $this->cookies = new Cookies($session);
+        $this->cookies = new Cookies($cookies);
 
         $this->params = new Params();
         $this->post   = new Params();

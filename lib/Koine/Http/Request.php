@@ -74,6 +74,22 @@ class Request extends Object
     {
         $options = new Hash($options);
 
+        $options->fetch('environment', function () {
+            throw new InvalidArgumentException('You must provide an environment');
+        });
+
+        $options->fetch('session', function () {
+            throw new InvalidArgumentException('You must provide a session');
+        });
+
+        $options->fetch('params', function () {
+            throw new InvalidArgumentException('You must provide params');
+        });
+
+        $options->fetch('cookies', function () {
+            throw new InvalidArgumentException('You must provide cookies');
+        });
+
         foreach ($options as $option => $value) {
             $this->send('set' . ucfirst($option), $value);
         }
