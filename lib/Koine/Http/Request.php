@@ -10,6 +10,27 @@ use Koine\Object;
  */
 class Request extends Object
 {
+
+    /**
+     * Request methods
+     */
+    const METHOD_GET    = 'GET';
+    const METHOD_POST   = 'POST';
+    const METHOD_PATCH  = 'PATCH';
+    const METHOD_DELETE = 'DELETE';
+    const METHOD_PUT    = 'PUT';
+
+    /**
+     * @var array
+     */
+    protected $acceptedMethods = array(
+        self::METHOD_GET,
+        self::METHOD_POST,
+        self::METHOD_PATCH,
+        self::METHOD_DELETE,
+        self::METHOD_PUT,
+    );
+
     /**
      * @var Environment
      */
@@ -200,5 +221,27 @@ class Request extends Object
         $env = $this->getEnvironment();
 
         return $env['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
+
+    public function getMethod()
+    {
+        $fakeMethod = $this->params['_method'];
+
+        if ($fakeMethod) {
+            if (in_array($fakeMethod, $this->acceptedMethods)) {
+                return $fakeMethod;
+            }
+
+            throw new Exceptions\InvalidRequestMethodException(
+                "'$fakeMethod' is not a valid request method"
+            );
+        }
+
+        return  $this->environment['REQUEST_METHOD'];
+    }
+
+    public function isPost()
+    {
+        return $this->getMethod() === 'POST';
     }
 }

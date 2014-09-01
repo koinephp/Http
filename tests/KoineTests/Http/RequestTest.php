@@ -106,4 +106,64 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->object->isXhr());
         $this->assertTrue($this->object->isAjax());
     }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsPost()
+    {
+        $this->environment['REQUEST_METHOD'] = 'GET';
+
+        $this->assertFalse($this->object->isPost());
+
+        $this->environment['REQUEST_METHOD'] = 'POST';
+
+        $this->assertTrue($this->object->isPost());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyRequestMethod()
+    {
+        $this->environment['REQUEST_METHOD'] = 'GET';
+
+        $this->assertEquals('GET', $this->object->getMethod());
+
+        $this->environment['REQUEST_METHOD'] = 'POST';
+
+        $this->assertEquals('POST', $this->object->getMethod());
+
+    }
+
+    public function dataProviderForRequestMethods()
+    {
+        return array(
+            array('POST', null, 'POST'),
+            array('POST', 'PATCH', 'PATCH'),
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider dataProviderForRequestMethods
+     */
+    public function itCanFakeRequestMethod($realMethod, $fakeMethod, $expectation)
+    {
+        $this->environment['REQUEST_METHOD'] = $realMethod;
+        $this->params['_method']             = $fakeMethod;
+
+        $this->assertEquals($expectation, $this->object->getMethod());
+    }
+
+    /**
+     * @test
+     * @expectedException Koine\Http\Exceptions\InvalidRequestMethodException
+     * @expectedExceptionMessage 'patch' is not a valid request method
+     */
+    public function itThrowsExceptionWhenGivenMethodIsInvalid()
+    {
+        $this->params['_method'] = 'patch';
+        $this->object->getMethod();
+    }
 }
