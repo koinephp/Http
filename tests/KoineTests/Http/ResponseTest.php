@@ -153,4 +153,139 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->object->setStatusCode(90);
     }
 
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestEmpty()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(404);
+        $request2->setStatusCode(201);
+        $this->assertFalse($request1->isEmpty());
+        $this->assertTrue($request2->isEmpty());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsClientError()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(404);
+        $request2->setStatusCode(500);
+        $this->assertTrue($request1->isClientError());
+        $this->assertFalse($request2->isClientError());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsForbidden()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(403);
+        $request2->setStatusCode(500);
+        $this->assertTrue($request1->isForbidden());
+        $this->assertFalse($request2->isForbidden());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsInformational()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(100);
+        $request2->setStatusCode(200);
+        $this->assertTrue($request1->isInformational());
+        $this->assertFalse($request2->isInformational());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsNotFound()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(404);
+        $request2->setStatusCode(200);
+        $this->assertTrue($request1->isNotFound());
+        $this->assertFalse($request2->isNotFound());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsOk()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(200);
+        $request2->setStatusCode(201);
+        $this->assertTrue($request1->isOk());
+        $this->assertFalse($request2->isOk());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsSuccessful()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request3 = new Response();
+        $request1->setStatusCode(200);
+        $request2->setStatusCode(201);
+        $request3->setStatusCode(302);
+        $this->assertTrue($request1->isSuccessful());
+        $this->assertTrue($request2->isSuccessful());
+        $this->assertFalse($request3->isSuccessful());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsRedirect()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(307);
+        $request2->setStatusCode(304);
+        $this->assertTrue($request1->isRedirect());
+        $this->assertFalse($request2->isRedirect());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsRedirection()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request3 = new Response();
+        $request1->setStatusCode(307);
+        $request2->setStatusCode(304);
+        $request3->setStatusCode(200);
+        $this->assertTrue($request1->isRedirection());
+        $this->assertTrue($request2->isRedirection());
+        $this->assertFalse($request3->isRedirection());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsServerError()
+    {
+        $request1 = new Response();
+        $request2 = new Response();
+        $request1->setStatusCode(500);
+        $request2->setStatusCode(400);
+        $this->assertTrue($request1->isServerError());
+        $this->assertFalse($request2->isServerError());
+    }
 }

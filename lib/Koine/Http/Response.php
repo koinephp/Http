@@ -224,4 +224,94 @@ class Response
             }
         }
     }
+
+    /**
+     * Helpers: Empty?
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return in_array($this->statusCode, array(201, 204, 304));
+    }
+
+    /**
+     * Helpers: Informational?
+     * @return bool
+     */
+    public function isInformational()
+    {
+        return $this->statusCode >= 100 && $this->statusCode < 200;
+    }
+
+    /**
+     * Helpers: OK?
+     * @return bool
+     */
+    public function isOk()
+    {
+        return $this->statusCode === 200;
+    }
+
+    /**
+     * Helpers: Successful?
+     * @return bool
+     */
+    public function isSuccessful()
+    {
+        return $this->statusCode >= 200 && $this->statusCode < 300;
+    }
+
+    /**
+     * Helpers: Redirect?
+     * @return bool
+     */
+    public function isRedirect()
+    {
+        return in_array($this->statusCode, array(301, 302, 303, 307));
+    }
+
+    /**
+     * Helpers: Redirection?
+     * @return bool
+     */
+    public function isRedirection()
+    {
+        return $this->statusCode >= 300 && $this->statusCode < 400;
+    }
+
+    /**
+     * Helpers: Forbidden?
+     * @return bool
+     */
+    public function isForbidden()
+    {
+        return $this->statusCode === 403;
+    }
+
+    /**
+     * Helpers: Not Found?
+     * @return bool
+     */
+    public function isNotFound()
+    {
+        return $this->statusCode === 404;
+    }
+
+    /**
+     * Helpers: Client error?
+     * @return bool
+     */
+    public function isClientError()
+    {
+        return $this->statusCode >= 400 && $this->statusCode < 500;
+    }
+
+    /**
+     * Helpers: Server Error?
+     * @return bool
+     */
+    public function isServerError()
+    {
+        return $this->statusCode >= 500 && $this->statusCode < 600;
+    }
 }
