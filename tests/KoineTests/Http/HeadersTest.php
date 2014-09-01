@@ -3,6 +3,7 @@
 namespace KoineTess;
 
 use Koine\Http\Headers;
+use Koine\Http\Header;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -62,9 +63,9 @@ class HeadersTest extends PHPUnit_Framework_TestCase
      */
     public function setLocationSetsTheHeaderLocation()
     {
-        $headers = $this->object->setLocation('/')->toArray();
+        $headers = $this->object->setLocation('/');
 
-        $this->assertEquals(array('Location' => '/'), $headers);
+        $this->assertEquals('Location: /', (string) $headers->first());
     }
 
     /**
@@ -72,11 +73,11 @@ class HeadersTest extends PHPUnit_Framework_TestCase
      */
     public function setContentTypeSetsTheContentType()
     {
-        $headers = $this->object->setContentType('application/json')->toArray();
+        $headers = $this->object->setContentType('application/json');
 
-        $expected = array('Content-Type' => 'application/json');
+        $expected = 'Content-Type: application/json';
 
-        $this->assertEquals($expected, $headers);
+        $this->assertEquals($expected, (string) $headers->first());
     }
 
     /**
@@ -118,5 +119,16 @@ class HeadersTest extends PHPUnit_Framework_TestCase
     public function whenStatusCodeIsUnkownItThrowsInvalidStatusCodeException()
     {
         $this->object->setStatusCode(90);
+    }
+
+    /**
+     * @test
+     */
+    public function setAndGetHeader()
+    {
+        $header = new Header('Content-Type', "application/json");
+        $this->object['Content-Type'] = $header;
+
+        $this->assertSame($header, $this->object['Content-Type']);
     }
 }

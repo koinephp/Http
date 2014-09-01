@@ -10,6 +10,7 @@ use Koine\String;
  */
 class Response
 {
+
     /**
      * @var Headers
      */

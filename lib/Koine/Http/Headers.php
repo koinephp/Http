@@ -99,8 +99,8 @@ class Headers extends Hash
 
         $this->sent = true;
 
-        foreach ($this as $header => $value) {
-            header("$header: $value");
+        foreach ($this as $header) {
+            $header->send();
         }
 
         return $this;
@@ -172,5 +172,21 @@ class Headers extends Hash
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($key, $value)
+    {
+        if (gettype($value) === 'string') {
+            $value = new Header($key, $value);
+        } else if (! $value instanceof Header) {
+            throw new InvalidArgumentException(
+                "Header must implement \Koine\Http\Header"
+            );
+        }
+
+        parent::offsetSet($key, $value);
     }
 }
