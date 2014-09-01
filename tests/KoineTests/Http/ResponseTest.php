@@ -124,4 +124,33 @@ class ResponseTest extends PHPUnit_Framework_TestCase
             ->setBody('Hello World!')
             ->send();
     }
+
+    /**
+     * @test
+     */
+    public function statusCodeIsInitially200()
+    {
+        $this->assertEquals(200, $this->object->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function canSetAndGetStatus()
+    {
+        $status = $this->object->setStatusCode(201)->getStatusCode();
+
+        $this->assertEquals(201, $status);
+    }
+
+    /**
+     * @test
+     * @expectedException Koine\Http\Exceptions\InvalidStatusCodeException
+     * @expectedExceptionMessage '90' is an invalid status code
+     */
+    public function whenStatusCodeIsUnkownItThrowsInvalidStatusCodeException()
+    {
+        $this->object->setStatusCode(90);
+    }
+
 }
