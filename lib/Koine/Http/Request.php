@@ -21,6 +21,7 @@ class Request extends Object
     const METHOD_PUT    = 'PUT';
 
     /**
+     * The accepted request methods
      * @var array
      */
     protected $acceptedMethods = array(
@@ -218,11 +219,13 @@ class Request extends Object
      */
     public function isXhr()
     {
-        $env = $this->getEnvironment();
-
-        return $env['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+        return $this->environment['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
     }
 
+    /**
+     * Get the request method
+     * @return string
+     */
     public function getMethod()
     {
         $fakeMethod = $this->params['_method'];
@@ -240,6 +243,10 @@ class Request extends Object
         return  $this->environment['REQUEST_METHOD'];
     }
 
+    /**
+     * Return true when request is post
+     * @return boolean
+     */
     public function isPost()
     {
         return $this->getMethod() === 'POST';
