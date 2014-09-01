@@ -16,9 +16,9 @@ class Request extends Object
      */
     const METHOD_GET    = 'GET';
     const METHOD_POST   = 'POST';
+    const METHOD_PUT    = 'PUT';
     const METHOD_PATCH  = 'PATCH';
     const METHOD_DELETE = 'DELETE';
-    const METHOD_PUT    = 'PUT';
 
     /**
      * The accepted request methods
@@ -244,11 +244,47 @@ class Request extends Object
     }
 
     /**
-     * Return true when request is post
+     * Return true when request is POST
      * @return boolean
      */
     public function isPost()
     {
-        return $this->getMethod() === 'POST';
+        return $this->getMethod() === self::METHOD_POST;
+    }
+
+    /**
+     * Return true when request is GET
+     * @return boolean
+     */
+    public function isGet()
+    {
+        return $this->getMethod() === self::METHOD_GET;
+    }
+
+    /**
+     * Return true when request is PATCH
+     * @return boolean
+     */
+    public function isPatch()
+    {
+        return $this->getMethod() === self::METHOD_PATCH;
+    }
+
+    /**
+     * Return true when request is PUT
+     * @return boolean
+     */
+    public function isPut()
+    {
+        return $this->getMethod() === self::METHOD_PUT;
+    }
+
+    /**
+     * Return true when request is DELETE
+     * @return boolean
+     */
+    public function isDelete()
+    {
+        return $this->getMethod() === self::METHOD_DELETE;
     }
 }

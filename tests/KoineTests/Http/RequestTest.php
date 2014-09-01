@@ -124,6 +124,62 @@ class RequestTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function canVerifyIfRequestIsGet()
+    {
+        $this->environment['REQUEST_METHOD'] = 'GET';
+
+        $this->assertTrue($this->object->isGet());
+
+        $this->environment['REQUEST_METHOD'] = 'POST';
+
+        $this->assertFalse($this->object->isGet());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsPatch()
+    {
+        $this->environment['REQUEST_METHOD'] = 'PATCH';
+
+        $this->assertTrue($this->object->isPatch());
+
+        $this->environment['REQUEST_METHOD'] = 'POST';
+
+        $this->assertFalse($this->object->isPatch());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsPut()
+    {
+        $this->environment['REQUEST_METHOD'] = 'PUT';
+
+        $this->assertTrue($this->object->isPut());
+
+        $this->environment['REQUEST_METHOD'] = 'GET';
+
+        $this->assertFalse($this->object->isPut());
+    }
+
+    /**
+     * @test
+     */
+    public function canVerifyIfRequestIsDelete()
+    {
+        $this->environment['REQUEST_METHOD'] = 'DELETE';
+
+        $this->assertTrue($this->object->isDelete());
+
+        $this->environment['REQUEST_METHOD'] = 'GET';
+
+        $this->assertFalse($this->object->isDelete());
+    }
+
+    /**
+     * @test
+     */
     public function canVerifyRequestMethod()
     {
         $this->environment['REQUEST_METHOD'] = 'GET';
@@ -133,7 +189,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->environment['REQUEST_METHOD'] = 'POST';
 
         $this->assertEquals('POST', $this->object->getMethod());
-
     }
 
     public function dataProviderForRequestMethods()
