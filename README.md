@@ -31,12 +31,12 @@ $get     = new Params($_GET);
 $params  = new Params($_REQUEST);
 
 $request = new Request(array(
-    'env'     => $env,
-    'cookies' => $cookies,
-    'session' => $session,
-    'post'    => $post,
-    'get'     => $get,
-    'params'  => $params,
+    'environment' => $env,
+    'cookies'     => $cookies,
+    'session'     => $session,
+    'post'        => $post,
+    'get'         => $get,
+    'params'      => $params,
 ));
 
 $hello = function ($request) {
