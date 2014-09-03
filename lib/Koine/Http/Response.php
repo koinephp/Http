@@ -333,7 +333,7 @@ class Response
         $this->redirectUrl = $url;
         $this->setStatusCode($options->fetch('status', 302));
 
-        $this->getHeaders()['Location'] = $url;
+        $this->getHeaders()->offsetSet('Location', $url);
 
         return $this;
     }
