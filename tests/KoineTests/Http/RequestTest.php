@@ -221,4 +221,37 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->params['_method'] = 'patch';
         $this->object->getMethod();
     }
+
+    public function getConstructorArguments()
+    {
+        return array(
+            array('environment'),
+            array('session'),
+            array('cookies'),
+            array('params'),
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider getConstructorArguments
+     */
+    public function constructorThrowsExceptionWhenArgumentIsNotPassed($key)
+    {
+        $this->setExpectedException(
+            "InvalidArgumentException",
+            "Parameter '$key' was not provided"
+        );
+
+        $arguments = array(
+            'environment' => $this->environment,
+            'session'     => $this->session,
+            'cookies'     => $this->cookies,
+            'params'      => $this->params,
+        );
+
+        unset($arguments[$key]);
+
+        $this->object = new Request($arguments);
+    }
 }

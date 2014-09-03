@@ -4,6 +4,7 @@ namespace Koine\Http;
 
 use Koine\Hash;
 use Koine\Object;
+use InvalidArgumentException;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -74,21 +75,16 @@ class Request extends Object
     {
         $options = new Hash($options);
 
-        $options->fetch('environment', function () {
-            throw new InvalidArgumentException('You must provide an environment');
-        });
+        $fetchCallback = function ($key) {
+            throw new InvalidArgumentException(
+                "Parameter '$key' was not provided"
+            );
+        };
 
-        $options->fetch('session', function () {
-            throw new InvalidArgumentException('You must provide a session');
-        });
-
-        $options->fetch('params', function () {
-            throw new InvalidArgumentException('You must provide params');
-        });
-
-        $options->fetch('cookies', function () {
-            throw new InvalidArgumentException('You must provide cookies');
-        });
+        $options->fetch('environment', $fetchCallback);
+        $options->fetch('session', $fetchCallback);
+        $options->fetch('params', $fetchCallback);
+        $options->fetch('cookies', $fetchCallback);
 
         foreach ($options as $option => $value) {
             $this->send('set' . ucfirst($option), $value);
