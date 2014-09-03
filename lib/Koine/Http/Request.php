@@ -54,16 +54,6 @@ class Request extends Object
     protected $params;
 
     /**
-     * @var Params
-     */
-    protected $postParams;
-
-    /**
-     * @var Params
-     */
-    protected $getParams;
-
-    /**
      * Valid options:
      *      environment - The Environment
      *      session - The Session
@@ -170,48 +160,6 @@ class Request extends Object
     public function getParams()
     {
         return $this->params;
-    }
-
-    /**
-     * Set the post params
-     * @param  Params $params
-     * @return self
-     */
-    public function setPost(Params $params)
-    {
-        $this->postParams = $params;
-
-        return $this;
-    }
-
-    /**
-     * Get the post params
-     * @return Params
-     */
-    public function getPost()
-    {
-        return $this->postParams;
-    }
-
-    /**
-     * Set the get params
-     * @param  Params $params
-     * @return self
-     */
-    public function setGet(Params $params)
-    {
-        $this->getParams = $params;
-
-        return $this;
-    }
-
-    /**
-     * Get the get params
-     * @return Params
-     */
-    public function getGet()
-    {
-        return $this->getParams;
     }
 
     /**

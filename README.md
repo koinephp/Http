@@ -26,16 +26,12 @@ namespace Koine\Http;
 $env     = new Environment($_SERVER);
 $cookies = new Cookies($_COOKIE);
 $session = new Session($_SESSION);
-$post    = new Params($_POST);
-$get     = new Params($_GET);
 $params  = new Params($_REQUEST);
 
 $request = new Request(array(
     'environment' => $env,
     'cookies'     => $cookies,
     'session'     => $session,
-    'post'        => $post,
-    'get'         => $get,
     'params'      => $params,
 ));
 

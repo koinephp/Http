@@ -18,8 +18,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
     protected $object;
     protected $session;
     protected $params;
-    protected $getParam;
-    protected $postParams;
 
     public function setUp()
     {
@@ -32,16 +30,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->cookies = new Cookies($cookies);
 
         $this->params = new Params();
-        $this->post   = new Params();
-        $this->get    = new Params();
 
         $this->object = new Request(array(
             'environment' => $this->environment,
             'session'     => $this->session,
             'cookies'     => $this->cookies,
             'params'      => $this->params,
-            'post'        => $this->post,
-            'get'         => $this->get,
         ));
     }
 
@@ -75,22 +69,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function setsParamsInTheConstructor()
     {
         $this->assertSame($this->params, $this->object->getParams());
-    }
-
-    /**
-     * @test
-     */
-    public function setsPostParamsInTheConstructor()
-    {
-        $this->assertSame($this->post, $this->object->getPost());
-    }
-
-    /**
-     * @test
-     */
-    public function setsGetParamsInTheConstructor()
-    {
-        $this->assertSame($this->get, $this->object->getGet());
     }
 
     /**
