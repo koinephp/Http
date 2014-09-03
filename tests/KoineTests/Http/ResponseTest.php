@@ -288,4 +288,35 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($request1->isServerError());
         $this->assertFalse($request2->isServerError());
     }
+
+    /**
+     * @test
+     */
+    public function itRedirectsTo()
+    {
+        $this->object->redirectTo("/index.php");
+
+        $this->assertSame("/index.php", $this->object->getRedirectUrl());
+
+        $this->assertSame(302, $this->object->getStatusCode());
+
+        $this->assertEquals(
+            'Location: /index.php',
+            $this->object->getHeaders()['Location']
+        );
+
+        // second redirect
+        $this->object->redirectTo("/index2.php", array(
+            'status' => 304
+        ));
+
+        $this->assertSame("/index2.php", $this->object->getRedirectUrl());
+
+        $this->assertSame(304, $this->object->getStatusCode());
+
+        $this->assertEquals(
+            'Location: /index2.php',
+            $this->object->getHeaders()['Location']
+        );
+    }
 }

@@ -28,6 +28,11 @@ class Response
     protected $statusCode = 200;
 
     /**
+     * @var string
+     */
+    protected $redirectUrl;
+
+    /**
      * @var array HTTP response codes and messages
      */
     protected $validStatusCodes = array(
@@ -313,5 +318,32 @@ class Response
     public function isServerError()
     {
         return $this->statusCode >= 500 && $this->statusCode < 600;
+    }
+
+    /**
+     * Set the redirection
+     *
+     * @param  string $url
+     * @param  array  $options
+     * @return self
+     */
+    public function redirectTo($url, array $options = array())
+    {
+        $options = new Hash($options);
+        $this->redirectUrl = $url;
+        $this->setStatusCode($options->fetch('status', 302));
+
+        $this->getHeaders()['Location'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get the url the response is going to be redirected
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->redirectUrl;
     }
 }
