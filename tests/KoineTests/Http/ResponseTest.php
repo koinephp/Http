@@ -302,7 +302,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'Location: /index.php',
-            $this->object->getHeaders()['Location']
+            $this->object->getHeaders()->offsetGet('Location')
         );
 
         // second redirect
@@ -316,7 +316,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'Location: /index2.php',
-            $this->object->getHeaders()['Location']
+            $this->object->getHeaders()->offsetGet('Location')
         );
     }
 }
