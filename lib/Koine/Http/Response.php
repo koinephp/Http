@@ -12,6 +12,11 @@ class Response
 {
 
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * @var Headers
      */
     protected $headers;
@@ -90,9 +95,10 @@ class Response
     /**
      * The available options are:
      *  - headers - the response headers
-     * @param array $options
+     * @param Request $request
+     * @param array   $options
      */
-    public function __construct(array $options = array())
+    public function __construct(Request $request, array $options = array())
     {
         $options = new Hash($options);
 

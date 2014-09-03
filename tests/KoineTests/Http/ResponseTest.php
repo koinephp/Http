@@ -4,6 +4,11 @@ namespace KoineTests\Http;
 
 use Koine\Http\Response;
 use Koine\Http\Headers;
+use Koine\Http\Environment;
+use Koine\Http\Session;
+use Koine\Http\Cookies;
+use Koine\Http\Params;
+use Koine\Http\Request;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -13,9 +18,28 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 {
     protected $object;
 
+    protected $request;
+
     public function setUp()
     {
-        $this->object = new Response();
+
+        $environment = new Environment(array());
+
+        $params  = array();
+        $session = new Session($params);
+        $cookies = new Cookies($params);
+        $params  = new Params();
+
+        $this->request = new Request(array(
+            'environment' => $environment,
+            'session'     => $session,
+            'cookies'     => $cookies,
+            'params'      => $params,
+        ));
+
+        $request = $this->request;
+
+        $this->object = new Response($request);
     }
 
     /**
@@ -48,7 +72,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
     {
         $headers = new Headers();
 
-        $object = new Response(array('headers' => $headers));
+        $object = new Response($this->request, array('headers' => $headers));
 
         $this->assertSame($headers, $object->getHeaders());
     }
@@ -158,8 +182,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestEmpty()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(404);
         $request2->setStatusCode(201);
         $this->assertFalse($request1->isEmpty());
@@ -171,8 +195,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsClientError()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(404);
         $request2->setStatusCode(500);
         $this->assertTrue($request1->isClientError());
@@ -184,8 +208,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsForbidden()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(403);
         $request2->setStatusCode(500);
         $this->assertTrue($request1->isForbidden());
@@ -197,8 +221,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsInformational()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(100);
         $request2->setStatusCode(200);
         $this->assertTrue($request1->isInformational());
@@ -210,8 +234,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsNotFound()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(404);
         $request2->setStatusCode(200);
         $this->assertTrue($request1->isNotFound());
@@ -223,8 +247,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsOk()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(200);
         $request2->setStatusCode(201);
         $this->assertTrue($request1->isOk());
@@ -236,9 +260,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsSuccessful()
     {
-        $request1 = new Response();
-        $request2 = new Response();
-        $request3 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
+        $request3 = new Response($this->request);
         $request1->setStatusCode(200);
         $request2->setStatusCode(201);
         $request3->setStatusCode(302);
@@ -252,8 +276,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsRedirect()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(307);
         $request2->setStatusCode(304);
         $this->assertTrue($request1->isRedirect());
@@ -265,9 +289,9 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsRedirection()
     {
-        $request1 = new Response();
-        $request2 = new Response();
-        $request3 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
+        $request3 = new Response($this->request);
         $request1->setStatusCode(307);
         $request2->setStatusCode(304);
         $request3->setStatusCode(200);
@@ -281,8 +305,8 @@ class ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function canVerifyIfRequestIsServerError()
     {
-        $request1 = new Response();
-        $request2 = new Response();
+        $request1 = new Response($this->request);
+        $request2 = new Response($this->request);
         $request1->setStatusCode(500);
         $request2->setStatusCode(400);
         $this->assertTrue($request1->isServerError());
