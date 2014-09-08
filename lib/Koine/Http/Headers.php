@@ -3,6 +3,7 @@
 namespace Koine\Http;
 
 use Koine\Hash;
+use InvalidArgumentException;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
