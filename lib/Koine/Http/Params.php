@@ -2,12 +2,12 @@
 
 namespace Koine\Http;
 
-use Koine\Hash;
+use Koine\Parameters;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
  */
-class Params extends Hash
+class Params extends Parameters
 {
 
 }

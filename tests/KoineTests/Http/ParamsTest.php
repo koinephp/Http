@@ -22,6 +22,6 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function extendsHash()
     {
-        $this->assertInstanceOf('Koine\Hash', $this->object);
+        $this->assertInstanceOf('Koine\Parameters', $this->object);
     }
 }

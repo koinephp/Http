@@ -10,7 +10,8 @@
     ],
     "require": {
         "php" : ">=5.3.3",
-        "koine/core" : "0.9.*"
+        "koine/core" : "0.9.*",
+        "koine/strong-parameters" : "0.9.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
